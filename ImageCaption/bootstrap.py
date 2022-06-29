@@ -10,6 +10,7 @@ def init():
     pip_install_required("rouge_score")
     pip_install_required("evaluate")
     pip_install_required("torchmetrics")
+    pip_install_required("google-colab")
     platform = 'None'
 
     if 'google.colab' in str(get_ipython()):

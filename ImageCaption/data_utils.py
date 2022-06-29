@@ -10,12 +10,7 @@ import pandas as pd
 import numpy as np
 
 def download_data():
-    if(not os.path.isfile("/content/gdrive/Shareddrives/projects_data/image_caption/flickr8k.zip")):
-        os.system("kaggle datasets download -d adityajn105/flickr8k")
-        os.system("unzip \*.zip  && rm *.zip")
-    
-    os.system("mkdir -p data")
-    image_captions_df = pd.read_csv("C:/Users/test/Downloads/modularized/captions.txt",sep=",",header=0)
+    image_captions_df = pd.read_csv("captions.txt",sep=",",header=0)
     return image_captions_df
 
 def train_test_split(annotate_dict,split_fraction=.2,shuffle=False):
@@ -35,7 +30,7 @@ def train_test_split(annotate_dict,split_fraction=.2,shuffle=False):
   return train_annotate_dict, test_annotate_dict
 
 def captions_annote_dict(image_captions_df):
-    image_captions_df['image_path'] = os.path.abspath('C:/Users/test/Downloads/modularized')+'/'+'Images'+'/'+image_captions_df['image']
+    image_captions_df['image_path'] = os.path.abspath('data')+'/'+'Images'+'/'+image_captions_df['image']
     image_captions_df['annotation'] = "[start] "+image_captions_df['caption']+" [end]"
     image_annotate_agg_df = image_captions_df[['image_path','annotation']].groupby(['image_path'],as_index=False).agg({'annotation':list}).reset_index()
     image_annotate_dict={}
